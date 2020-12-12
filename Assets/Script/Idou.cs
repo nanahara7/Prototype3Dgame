@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Idou : MonoBehaviour
 {
-    /// <summary>走る速さ</summary>
-    [SerializeField] float m_dashSpeed = 6f;
+    [SerializeField] float m_dushSpeed = 7f;
     /// <summary>動く速さ</summary>
     [SerializeField] float m_movingSpeed = 5f;
     /// <summary>ターンの速さ</summary>
@@ -14,8 +13,6 @@ public class Idou : MonoBehaviour
     [SerializeField] float m_jumpPower = 5f;
     /// <summary>接地判定の際、中心 (Pivot) からどれくらいの距離を「接地している」と判定するかの長さ</summary>
     [SerializeField] float m_isGroundedLength = 0.1f;
-    /// <summary>攻撃判定のトリガー</summary>
-    [SerializeField] Collider m_attackTrigger = null;
     CharacterController m_charaCon;
     Rigidbody m_rb;
     Animator m_anim;
@@ -45,7 +42,22 @@ public class Idou : MonoBehaviour
         // カメラを基準に入力が上下=奥/手前, 左右=左右にキャラクターを向ける
         dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
         dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
+        
+        if (Input.GetButtonDown("Dush")) //Left shift
+        {
+            //入力した方向へ走る
+            Vector3 runVelo = dir.normalized * m_dushSpeed;
+            //走っている状態でジャンプしたときのy軸を保持する
+            runVelo.y = m_rb.velocity.y;
+            m_rb.velocity = runVelo;
 
+            m_anim.SetTrigger("Run");
+        }
+        else if (Input.GetButtonUp("Dush"))
+        {
+            m_anim.SetTrigger("Walk");
+        }
+        
         if (IsGrounded())
         {
             if (dir == Vector3.zero)
@@ -62,6 +74,7 @@ public class Idou : MonoBehaviour
                 Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
                 velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
+                
             }
 
             if (m_anim)
@@ -87,24 +100,12 @@ public class Idou : MonoBehaviour
                     m_anim.SetTrigger("Jump");
                 }
             }
+            Debug.Log(m_rb.velocity.magnitude);
         }
 
          
 
-        if (Input.GetButtonDown("Dush")) //Left shift
-        {
-            //入力下方向へ走る
-            Vector3 runVelo = dir.normalized * m_dashSpeed;
-            //走っている状態でジャンプしたときのy軸を保持する
-            runVelo.y = m_rb.velocity.y;
-            m_rb.velocity = runVelo;
-            
-            m_anim.SetTrigger("Run");
-        }
-        else if (Input.GetButtonUp("Dush"))
-        {        
-            m_anim.SetTrigger("Walk");
-        }
+       
 
 
 
