@@ -43,20 +43,20 @@ public class Idou : MonoBehaviour
         dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
         dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
         
-        if (Input.GetButtonDown("Dush")) //Left shift
-        {
-            //入力した方向へ走る
-            Vector3 runVelo = dir.normalized * m_dushSpeed;
-            //走っている状態でジャンプしたときのy軸を保持する
-            runVelo.y = m_rb.velocity.y;
-            m_rb.velocity = runVelo;
+        //if (Input.GetButtonDown("Dush")) //Left shift
+        //{
+        //    //入力した方向へ走る
+        //    Vector3 runVelo = dir.normalized * m_dushSpeed;
+        //    //走っている状態でジャンプしたときのy軸を保持する
+        //    runVelo.y = m_rb.velocity.y;
+        //    m_rb.velocity = runVelo;
 
-            m_anim.SetTrigger("Run");
-        }
-        else if (Input.GetButtonUp("Dush"))
-        {
-            m_anim.SetTrigger("Walk");
-        }
+        //    m_anim.SetTrigger("Run");
+        //}
+        //else if (Input.GetButtonUp("Dush"))
+        //{
+        //    m_anim.SetTrigger("Walk");
+        //}
         
         if (IsGrounded())
         {
@@ -74,7 +74,13 @@ public class Idou : MonoBehaviour
                 Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
                 velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
-                
+                if (Input.GetButtonDown("Run"))
+                {
+                    Vector3 runVelo = dir.normalized * m_movingSpeed * 1.5f;
+                    runVelo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
+                    m_rb.velocity = runVelo;   // 計算した速度ベクトルをセットする
+                }
+
             }
 
             if (m_anim)

@@ -78,6 +78,7 @@
     <Compile Include="Assets\Script\Dush.cs" />
     <Compile Include="Assets\Script\FPSController.cs" />
     <Compile Include="Assets\Script\Idou.cs" />
+    <Compile Include="Assets\Script\kakuninn.cs" />
     <Compile Include="Assets\_IK_UnityChanPushesCube\HandsIKController.cs" />
     <Compile Include="Assets\_IK_UnityChanWithButterfly\LookAtTargetUsingIK.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\AutoBlink.cs" />
