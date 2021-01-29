@@ -6,7 +6,7 @@ public class Idou : MonoBehaviour
 {
     [SerializeField] float m_dushSpeed = 7f;
     /// <summary>動く速さ</summary>
-    [SerializeField] float m_movingSpeed = 5f;
+    [SerializeField] float m_movingSpeed = 3f;
     /// <summary>ターンの速さ</summary>
     [SerializeField] float m_turnSpeed = 3f;
     /// <summary>ジャンプ力</summary>
@@ -42,8 +42,8 @@ public class Idou : MonoBehaviour
         // カメラを基準に入力が上下=奥/手前, 左右=左右にキャラクターを向ける
         dir = Camera.main.transform.TransformDirection(dir);    // メインカメラを基準に入力方向のベクトルを変換する
         dir.y = 0;  // y 軸方向はゼロにして水平方向のベクトルにする
-        
-        //if (Input.GetButtonDown("Dush")) //Left shift
+
+        //if (Input.GetButton("Dush")) //Left shift
         //{
         //    //入力した方向へ走る
         //    Vector3 runVelo = dir.normalized * m_dushSpeed;
@@ -51,13 +51,8 @@ public class Idou : MonoBehaviour
         //    runVelo.y = m_rb.velocity.y;
         //    m_rb.velocity = runVelo;
 
-        //    m_anim.SetTrigger("Run");
-        //}
-        //else if (Input.GetButtonUp("Dush"))
-        //{
-        //    m_anim.SetTrigger("Walk");
-        //}
-        
+ 
+
         if (IsGrounded())
         {
             if (dir == Vector3.zero)
@@ -74,13 +69,15 @@ public class Idou : MonoBehaviour
                 Vector3 velo = dir.normalized * m_movingSpeed; // 入力した方向に移動する
                 velo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
                 m_rb.velocity = velo;   // 計算した速度ベクトルをセットする
-                if (Input.GetButtonDown("Run"))
+                m_anim.SetTrigger("Walk");
+                if (Input.GetButton("Dush"))
                 {
                     Vector3 runVelo = dir.normalized * m_movingSpeed * 1.5f;
                     runVelo.y = m_rb.velocity.y;   // ジャンプした時の y 軸方向の速度を保持する
-                    m_rb.velocity = runVelo;   // 計算した速度ベクトルをセットする
+                    m_rb.velocity = runVelo;
+                    // 計算した速度ベクトルをセットする
+                    m_anim.SetTrigger("Run");
                 }
-
             }
 
             if (m_anim)

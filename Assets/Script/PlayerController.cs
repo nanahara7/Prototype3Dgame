@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class kakuninn : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     ///<summary>走ったときの速さ</summary>
     [SerializeField] float m_dushSpeed = 10f;
