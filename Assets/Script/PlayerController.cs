@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
         //入力方向のベクトルを組み立てる
         Vector3 dir = Vector3.forward * v + Vector3.right * h;
 
-        //カメラを基準に入力したベクトルを変化させる
-        dir = Camera.main.transform.TransformDirection(dir);
-        dir.y = 0;
+        ////カメラを基準に入力したベクトルを変化させる
+        //dir = Camera.main.transform.TransformDirection(dir);
+        //dir.y = 0;
 
         if (IsGrounded())
         {
